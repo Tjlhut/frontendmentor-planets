@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Antonio:wght@500&family=Spartan:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Frontend Mentor | Planets fact site</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header>
+      <div class="logo">THE PLANETS</div>
+      <div class="planets">
+        <div class="planet"><h4>MERCURY</h4></div>
+        <div class="planet"><h4>VENUS</h4></div>
+        <div class="planet"><h4>EARTH</h4></div>
+        <div class="planet"><h4>MARS</h4></div>
+        <div class="planet"><h4>JUPITER</h4></div>
+        <div class="planet"><h4>SATURN</h4></div>
+        <div class="planet"><h4>URANUS</h4></div>
+        <div class="planet"><h4>NEPTUNE</h4></div>
+      </div>
+      <div class="hamburger">
+        <img src="./assets/icon-hamburger.svg" alt="hamburger icon" />
+      </div>
+    </header>
+    <main>
+      <section class="left">
+        <div class="main-image">
+          <img
+            src="./assets/planet-earth.svg"
+            alt="planet earth"
+            class="img-1"
+          />
+          <img
+            src="./assets/planet-earth-internal.svg"
+            alt="Earth's internal"
+            class="img-2 hidden"
+          />
+          <div class="overlay-image hidden">
+            <img
+              src="./assets/geology-earth.png"
+              alt=""
+              class="overlay overlay-earth"
+            />
+          </div>
+        </div>
+      </section>
+      <section class="right">
+        <div class="planet-info">
+          <div class="planet-name"><h1>EARTH</h1></div>
+          <!-- Overview Content Start -->
+          <div class="info">
+            <div class="overview">
+              <div class="content">
+                <p>
+                  Third planet from the Sun and the only known planet to harbor
+                  life. About 29.2% of Earth's surface is land with remaining
+                  70.8% is covered with water. Earth's distance from the Sun,
+                  physical properties and geological history have allowed life
+                  to evolve and thrive.
+                </p>
+              </div>
+              <div class="source">
+                <p>
+                  Source :
+                  <a href="https://en.wikipedia.org/wiki/Earth">Wikipedia</a>
+                </p>
+              </div>
+            </div>
+            <!-- Overview Content End -->
+
+            <!-- Internal Structure Content Start -->
+            <div class="internal-structure">
+              <div class="content">
+                <p>
+                  Earth's interior, like that of the other terrestrial planets,
+                  is divided into layers by their chemical or physical
+                  (rheological) properties. The outer layer is a chemically
+                  distinct silicate solid crust, which is underlain by a highly
+                  viscous solid mantle.
+                </p>
+              </div>
+              <div class="source">
+                <p>
+                  Source :
+                  <a
+                    href="https://en.wikipedia.org/wiki/Earth#Internal_structure"
+                    >Wikipedia</a
+                  >
+                </p>
+              </div>
+            </div>
+            <!-- Internal Structure Content End -->
+
+            <!-- Surface Geology Content Start -->
+            <div class="surface-geology">
+              <div class="content">
+                <p>
+                  The total surface area of Earth is about 510 million km2. The
+                  continental crust consists of lower density material such as
+                  the igneous rocks granite and andesite. Less common is basalt,
+                  a denser volcanic rock that is the primary constituent of the
+                  ocean floors.
+                </p>
+              </div>
+              <div class="source">
+                <p>
+                  Source :
+                  <a href="https://en.wikipedia.org/wiki/Earth#Surface"
+                    >Wikipedia</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Surface Geology Content End -->
+
+        <div class="buttons">
+          <button class="active-earth" id="overview-btn">
+            <h3><span>01</span> Overview</h3>
+          </button>
+          <button id="internal-structure-btn">
+            <h3><span>02</span> Internal Structure</h3>
+          </button>
+          <button id="surface-geology-btn">
+            <h3><span>03</span> Surface Geology</h3>
+          </button>
+        </div>
+      </section>
+      <section class="bottom">
+        <div class="stats">
+          <div class="stat">
+            <h4>ROTATION TIME</h4>
+            <h2>0.99 DAYS</h2>
+          </div>
+          <div class="stat">
+            <h4>REVOLUTION TIME</h4>
+            <h2>365.26 DAYS</h2>
+          </div>
+          <div class="stat">
+            <h4>RADIUS</h4>
+            <h2>6,371 KM</h2>
+          </div>
+          <div class="stat">
+            <h4>AVERAGE TEMP.</h4>
+            <h2>16°C</h2>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+<script>
+  let jsonData;
+
+  fetch("./data.json")
+    .then((response) => response.json())
+    .then((data) => {
+      jsonData = data;
+    });
+
+  [overview, internalStructure, surfaceGeology] = document.querySelectorAll(
+    "section.right div.overview, div.internal-structure, div.surface-geology"
+  );
+  [rotation, revolution, radius, temperature] = document.querySelectorAll(
+    "section.bottom .stat h2"
+  );
+  internalStructure.style.display = "none";
+  surfaceGeology.style.display = "none";
+  hamburgerIcon = document.querySelector(".hamburger");
+  btns = document.querySelectorAll("button");
+  activeString = "active-earth";
+  overlayString = "overlay-earth";
+  activeBtnId = document.querySelector(`.${activeString}`).id;
+  overviewImage = document.querySelector("section.left .img-1");
+  internalImage = document.querySelector("section.left .img-2");
+
+  imageOverlay = document.querySelector("section.left div.overlay-image");
+  planets = document.querySelectorAll("header .planets .planet");
+
+  planetName = document.querySelector(
+    "body > main > section.right div.planet-name > h1"
+  );
+  planets.forEach((planet) => {
+    planet.addEventListener("click", () => {
+      if (planetName.innerText == planet.innerText) {
+        return;
+      }
+      planetDup = planet;
+      let i = 0;
+      for (i; (planet = planet.previousElementSibling) != null; i++);
+      planet = planetDup;
+      planetData = jsonData[i];
+      planetName.innerHTML = planetData.name.toUpperCase();
+
+      overview.querySelector(".content p").innerHTML =
+        planetData.overview.content;
+      overview.querySelector(".source p a").href = planetData.overview.source;
+
+      internalStructure.querySelector(".content p").innerHTML =
+        planetData.structure.content;
+      internalStructure.querySelector(".source p a").href =
+        planetData.structure.source;
+
+      surfaceGeology.querySelector(".content p").innerHTML =
+        planetData.geology.content;
+      surfaceGeology.querySelector(".source p a").href =
+        planetData.geology.source;
+
+      overviewImage.src = planetData.images.planet;
+      internalImage.src = planetData.images.internal;
+      imageOverlay.querySelector("img").src = planetData.images.geology;
+
+      rotation.innerText = planetData.rotation.toUpperCase();
+      radius.innerText = planetData.radius.toUpperCase();
+      revolution.innerText = planetData.revolution.toUpperCase();
+      temperature.innerText = planetData.temperature.toUpperCase();
+
+      document.querySelector(`#${activeBtnId}`).classList.remove(activeString);
+      imageOverlay.querySelector("img").classList.remove(overlayString);
+
+      activeString = `active-${planetData.name.toLowerCase()}`;
+      overlayString = `overlay-${planetData.name.toLowerCase()}`;
+
+      document.querySelector(`#${activeBtnId}`).classList.add(activeString);
+      imageOverlay.querySelector("img").classList.add(overlayString);
+    });
+  });
+
+  btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      btnId = btn.id;
+      if (btnId == activeBtnId) {
+        return;
+      }
+      document.querySelector(`#${activeBtnId}`).classList.remove(activeString);
+
+      btn.classList.add(activeString);
+      document.querySelector(
+        `section.right div.${activeBtnId.slice(0, -4)}`
+      ).style.display = "none";
+
+      if (btnId === "overview-btn") {
+        document.querySelector("section.right div.overview").style.display =
+          "block";
+        if (activeBtnId === "surface-geology-btn") {
+          imageOverlay.classList.add("hidden");
+        } else {
+          internalImage.classList.add("hidden");
+          overviewImage.classList.remove("hidden");
+        }
+      } else if (btnId === "internal-structure-btn") {
+        document.querySelector(
+          "section.right div.internal-structure"
+        ).style.display = "block";
+
+        imageOverlay.classList.add("hidden");
+        overviewImage.classList.add("hidden");
+        internalImage.classList.remove("hidden");
+      } else if (btnId === "surface-geology-btn") {
+        document.querySelector(
+          "section.right div.surface-geology"
+        ).style.display = "block";
+        internalImage.classList.add("hidden");
+        overviewImage.classList.remove("hidden");
+        imageOverlay.classList.remove("hidden");
+      }
+
+      activeBtnId = btnId;
+    });
+  });
+  // window.matchMedia("(max-width: 700px)").addListener((x) => {
+  //   if (x.matches) {
+  //     hamburgerIcon.classList.remove("hidden");
+  //   } else {
+  //     hamburgerIcon.classList.add("hidden");
+  //   }
+  // });
+  hamburgerIcon.addEventListener("click", () => {
+    console.log("Click");
+  });
+</script>
